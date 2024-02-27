@@ -1,88 +1,85 @@
-function authenticate() {
-    dispatchEvent
-   const answer = prompt("On your 13th birthday, what gift did I give you?");
-   if (answer === "wallmate") {
-     initializeApp();
-   } else {
-     alert("Incorrect answer. Please enter your answer without any capital letters, spaces (e.g chocolatebox) and double-check for spelling errors.");
-     authenticate(); 
-   }
- }
- 
- function initializeApp() {
-   const inputText = document.getElementById('inputText');
-   const encodeButton = document.querySelector('.primary');
-   const decodeButton = document.querySelector('.secondary');
- 
-   inputText.removeAttribute("disabled");
-   encodeButton.removeAttribute("disabled");
-   decodeButton.removeAttribute("disabled");
- }
- 
- function simulateTyping(callback) {
-   const outputDiv = document.createElement('div');
-   document.body.appendChild(outputDiv);
-   outputDiv.style.marginLeft = '10px'; /* Add left margin */
-   outputDiv.style.marginRight = '10px'; /* Add right margin */
- 
-   const text = callback();
-   let index = 0;
- 
-   function type() {
-     outputDiv.innerHTML += text.charAt(index);
-     index++;
-     if (index < text.length) {
-       setTimeout(type,45);
-     }
-   }
- 
-   type();
- }
- 
- function encodeText() {
-   const inputText = document.getElementById('inputText').value.toLowerCase();
-   let outputText = '';
- 
-   for (let i = 0; i < inputText.length; i++) {
-     const charCode = inputText.charCodeAt(i);
- 
-     if (charCode >= 97 && charCode <= 122) {
-       const encodedCharCode = 219 - charCode;
-       outputText += String.fromCharCode(encodedCharCode);
-     } else {
-       outputText += inputText[i];
-     }
-   }
- 
-   return outputText;
- }
- 
- function decodeText() {
-   const inputText = document.getElementById('inputText').value.toLowerCase();
-   let outputText = '';
- 
-   for (let i = 0; i < inputText.length; i++) {
-     const charCode = inputText.charCodeAt(i);
- 
-     if (charCode >= 97 && charCode <= 122) {
-       const decodedCharCode = 219 - charCode;
-       outputText += String.fromCharCode(decodedCharCode);
-     } else {
-       outputText += inputText[i];
-     }
-   }
- 
-   return outputText;
- }
- 
+// ——————————————————————————————————————————————————
+// TextScramble
+// ——————————————————————————————————————————————————
 
+class TextScramble {
+  constructor(el) {
+    this.el = el
+    this.chars = '!<>-_\\/[]{@}—=+*^?#________'
+    this.update = this.update.bind(this)
+  }
+  setText(newText) {
+    const oldText = this.el.innerText
+    const length = Math.max(oldText.length, newText.length)
+    const promise = new Promise((resolve) => this.resolve = resolve)
+    this.queue = []
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || ''
+      const to = newText[i] || ''
+      const start = Math.floor(Math.random() * 40)
+      const end = start + Math.floor(Math.random() * 40)
+      this.queue.push({ from, to, start, end })
+    }
+    cancelAnimationFrame(this.frameRequest)
+    this.frame = 0
+    this.update()
+    return promise
+  }
+  update() {
+    let output = ''
+    let complete = 0
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i]
+      if (this.frame >= end) {
+        complete++
+        output += to
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar()
+          this.queue[i].char = char
+        }
+        output += `<span class="dud">${char}</span>`
+      } else {
+        output += from
+      }
+    }
+    this.el.innerHTML = output
+    if (complete === this.queue.length) {
+      this.resolve()
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update)
+      this.frame++
+    }
+  }
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)]
+  }
+}
 
- //////
+// ——————————————————————————————————————————————————
+// Example
+// ——————————————————————————————————————————————————
 
+const phrases = [
+  'Sorry,',
+  'Update is in progress',
+  'we will\ be back soon',
+  'with',
+  'Our new language',
+  'BTW',
+  'Love You In Every Universe',
+  'Lamiya',
+]
 
- 
- // Check authentication when the page loads
- window.onload = function () {
-   authenticate();
- };
- 
+const el = document.querySelector('.text')
+const fx = new TextScramble(el)
+
+let counter = 0
+const next = () => {
+  fx.setText(phrases[counter]).then(() => {
+    setTimeout(next, 800)
+  })
+  counter = (counter + 1) % phrases.length
+}
+
+next()
