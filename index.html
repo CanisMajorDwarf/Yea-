@@ -1,127 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="secret.js"></script> 
-  <style>
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      margin: 20px auto;
-      background: url('wb2.png') center/cover fixed no-repeat;
-      background-color: #f8f9fa;
-      color: #343a40;
-      position: relative;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-    }
-
-    .running-text-container {
-      position: absolute;
-      top: 28px;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .running-text {
-      white-space: nowrap;
-      animation: runText 14s linear infinite;
-      opacity: 50%;
-    }
-
-    @keyframes runText {
-      from {
-        transform: translateX(100%);
-      }
-
-      to {
-        transform: translateX(-100%);
-      }
-    }
-
-    textarea {
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ced4da;
-      border-radius: 5px;
-      width: 80%;
-      box-sizing: border-box;
-      margin-bottom: 15px;
-      resize: vertical;
-      margin: 0 auto;
-      margin-left: 10px;
-      margin-right: 10px;
-      /* From https://css.glass */
-background: rgba(40, 86, 166, 0.13);
-border-radius: 10px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(2px);
--webkit-backdrop-filter: blur(2px);
-      
-    }
-
-
-    button {
-    padding: 8px; /* Adjusted padding to make the button smaller */
-    font-size: 14px; /* Adjusted font size to make the button smaller */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 30%; /* Adjusted width to make the button smaller */
-    max-width: 150px; /* Adjusted max-width to make the button smaller */
-    margin: 0 5px;
-  }
-
-    button.primary {
-      background-color: #007bff;
-      color: #fff;
-    }
-
-    button.secondary {
-      background-color: #6c757d;
-      color: #fff;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    @media (max-width: 768px) {
-      textarea,
-      button {
-        width: 90%;
-        margin: 0 auto;
-        margin-top: 10px;
-      }
-    }
-  </style>
-  <title>YEA!#</title>
-  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:100">
+  <title>Text Scramble Example</title>
 </head>
-
 <body>
-
-  <h2>YEA!#</h2>
-
-  <div class="running-text-container">
-    <div class="running-text"></div>
+  <div class="container">
+    <div class="text"></div>
   </div>
 
-  <label for="inputText"></label>
-  <textarea id="inputText" placeholder="Enter text" rows="3" disabled></textarea>
-
-  <br>
-
-  <button class="primary" onclick="simulateTyping(encodeText)" disabled>Encode</button>
-  <button class="secondary" onclick="simulateTyping(decodeText)" disabled>Decode</button>
-
+  <script src="secret.js"></script>
 </body>
-
 </html>
