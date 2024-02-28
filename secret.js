@@ -65,7 +65,7 @@ const phrases = [
   'Update is in progress',
   'we will\ be back soon',
   'with',
-  'Our new language',
+  'Our New Language',
   'BTW',
   'Love You In Every Universe',
   'Lamiya',
