@@ -1,85 +1,141 @@
-// ——————————————————————————————————————————————————
-// TextScramble
-// ——————————————————————————————————————————————————
-
-class TextScramble {
-  constructor(el) {
-    this.el = el
-    this.chars = '!<>-_\\/[]{@}—=+*^?#________'
-    this.update = this.update.bind(this)
-  }
-  setText(newText) {
-    const oldText = this.el.innerText
-    const length = Math.max(oldText.length, newText.length)
-    const promise = new Promise((resolve) => this.resolve = resolve)
-    this.queue = []
-    for (let i = 0; i < length; i++) {
-      const from = oldText[i] || ''
-      const to = newText[i] || ''
-      const start = Math.floor(Math.random() * 40)
-      const end = start + Math.floor(Math.random() * 40)
-      this.queue.push({ from, to, start, end })
+function authenticate() {
+    const answer = prompt("what treat did you give me on your 13th birthday?.What was the name we decided on for our son?");
+    if (answer === "icecream.yeasif") {
+      initializeApp();
+    } else {
+      alert("Incorrect answer. Please enter your answer without any capital letters, spaces (e.g pizza.einstein ) (use . between the two answer) and double-check for spelling errors.");
+      authenticate();
     }
-    cancelAnimationFrame(this.frameRequest)
-    this.frame = 0
-    this.update()
-    return promise
   }
-  update() {
-    let output = ''
-    let complete = 0
-    for (let i = 0, n = this.queue.length; i < n; i++) {
-      let { from, to, start, end, char } = this.queue[i]
-      if (this.frame >= end) {
-        complete++
-        output += to
-      } else if (this.frame >= start) {
-        if (!char || Math.random() < 0.28) {
-          char = this.randomChar()
-          this.queue[i].char = char
-        }
-        output += `<span class="dud">${char}</span>`
-      } else {
-        output += from
+  
+  function initializeApp() {
+    const inputText = document.getElementById('inputText');
+    const encodeButton = document.querySelector('.primary');
+    const decodeButton = document.querySelector('.secondary');
+  
+    inputText.removeAttribute("disabled");
+    encodeButton.removeAttribute("disabled");
+    decodeButton.removeAttribute("disabled");
+  }
+  
+  function simulateTyping(callback) {
+    const outputDiv = document.createElement('div');
+    document.body.appendChild(outputDiv);
+    outputDiv.style.marginLeft = '10px'; /* Add left margin */
+    outputDiv.style.marginRight = '10px'; /* Add right margin */
+  
+    const text = callback();
+    let index = 0;
+  
+    function type() {
+      outputDiv.innerHTML += text.charAt(index);
+      index++;
+      if (index < text.length) {
+        setTimeout(type, 45);
       }
     }
-    this.el.innerHTML = output
-    if (complete === this.queue.length) {
-      this.resolve()
-    } else {
-      this.frameRequest = requestAnimationFrame(this.update)
-      this.frame++
+  
+    type();
+  }
+  
+  function encodeText() {
+    const inputText = document.getElementById('inputText').value.toLowerCase();
+    let outputText = '';
+  
+    const letterToSymbol = {
+        
+            'a': '(',
+            'b': ')',
+            'c': '$',
+            'd': '#',
+            'e': '<',
+            'f': '&',
+            'g': '>',
+            'h': '"',
+            'i': '-',
+            'j': '`',
+            'k': '@',
+            'l': ':',
+            'm': '*',
+            'n': '|',
+            'o': '%',
+            'p': '^',
+            'q': '/',
+            'r': '+',
+            's': '=',
+            't': ';',
+            'u': '_',
+            'v': '~',
+            'w': '{',
+            'x': '}',
+            'y': '[',
+            'z': ']',
+          
+          
+    };
+  
+    for (let i = 0; i < inputText.length; i++) {
+      const char = inputText.charAt(i);
+  
+      if (char >= 'a' && char <= 'z') {
+        outputText += letterToSymbol[char];
+      } else {
+        outputText += char;
+      }
     }
+  
+    return outputText;
   }
-  randomChar() {
-    return this.chars[Math.floor(Math.random() * this.chars.length)]
+  
+  function decodeText() {
+    const inputText = document.getElementById('inputText').value.toLowerCase();
+    let outputText = '';
+  
+    const symbolToLetter = {
+'(': 'a',
+')': 'b',
+'$': 'c',
+'#': 'd',
+'<': 'e',
+'&': 'f',
+'>': 'g',
+'"': 'h',
+'-': 'i',
+'`': 'j',
+'@': 'k',
+':': 'l',
+'*': 'm',
+'|': 'n',
+'%': 'o',
+'^': 'p',
+'/': 'q',
+'+': 'r',
+'=': 's',
+';': 't',
+'_': 'u',
+'~': 'v',
+'{': 'w',
+'}': 'x',
+'[': 'y',
+']': 'z',
+
+    };
+  
+    for (let i = 0; i < inputText.length; i++) {
+      const char = inputText.charAt(i);
+  
+      if (char in symbolToLetter) {
+        outputText += symbolToLetter[char];
+      } else {
+        outputText += char;
+      }
+    }
+  
+    return outputText;
   }
-}
-
-// ——————————————————————————————————————————————————
-// Example
-// ——————————————————————————————————————————————————
-
-const phrases = [
-  'Sorry,',
-  'Update is in progress',
-  'we will\ be back soon',
-  'with',
-  'Our New Language',
-  'BTW',
-  'Love You In Every Universe',
-  'Lamiya',
-]
-
-const el = document.querySelector('.text')
-const fx = new TextScramble(el)
-
-let counter = 0
-const next = () => {
-  fx.setText(phrases[counter]).then(() => {
-    setTimeout(next, 800)
-  })
-  counter = (counter + 1) % phrases.length
-}
-
-next()
+  
+  // Check authentication when the page loads
+  window.onload = function () {
+    authenticate();
+  };
+  
