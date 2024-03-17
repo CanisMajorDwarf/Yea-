@@ -1,82 +1,54 @@
-// ——————————————————————————————————————————————————
-// TextScramble
-// ——————————————————————————————————————————————————
+function encodeText() {
+  const inputText = document.getElementById('inputText').value.toLowerCase();
+  let outputText = '';
 
-class TextScramble {
-    constructor(el) {
-      this.el = el
-      this.chars = 'zywznwzbdsjz________'
-      this.update = this.update.bind(this)
-    }
-    setText(newText) {
-      const oldText = this.el.innerText
-      const length = Math.max(oldText.length, newText.length)
-      const promise = new Promise((resolve) => this.resolve = resolve)
-      this.queue = []
-      for (let i = 0; i < length; i++) {
-        const from = oldText[i] || ''
-        const to = newText[i] || ''
-        const start = Math.floor(Math.random() * 40)
-        const end = start + Math.floor(Math.random() * 40)
-        this.queue.push({ from, to, start, end })
-      }
-      cancelAnimationFrame(this.frameRequest)
-      this.frame = 0
-      this.update()
-      return promise
-    }
-    update() {
-      let output = ''
-      let complete = 0
-      for (let i = 0, n = this.queue.length; i < n; i++) {
-        let { from, to, start, end, char } = this.queue[i]
-        if (this.frame >= end) {
-          complete++
-          output += to
-        } else if (this.frame >= start) {
-          if (!char || Math.random() < 0.28) {
-            char = this.randomChar()
-            this.queue[i].char = char
-          }
-          output += `<span class="dud">${char}</span>`
-        } else {
-          output += from
-        }
-      }
-      this.el.innerHTML = output
-      if (complete === this.queue.length) {
-        this.resolve()
-      } else {
-        this.frameRequest = requestAnimationFrame(this.update)
-        this.frame++
-      }
-    }
-    randomChar() {
-      return this.chars[Math.floor(Math.random() * this.chars.length)]
+  for (let i = 0; i < inputText.length; i++) {
+    const charCode = inputText.charCodeAt(i);
+
+    if (charCode >= 97 && charCode <= 122) {
+      const encodedCharCode = 219 - charCode;
+      outputText += String.fromCharCode(encodedCharCode);
+    } else {
+      outputText += inputText[i];
     }
   }
-  
-  // ——————————————————————————————————————————————————
-  // Example
-  // ——————————————————————————————————————————————————
-  
-  const phrases = [
-    'Sorry!!',
-    'Update is in progress',
-    'BTW',
-    'Love You In Every Universe',
-    'Lamiya',
-  ]
-  
-  const el = document.querySelector('.text')
-  const fx = new TextScramble(el)
-  
-  let counter = 0
-  const next = () => {
-    fx.setText(phrases[counter]).then(() => {
-      setTimeout(next, 800)
-    })
-    counter = (counter + 1) % phrases.length
+
+  displayOutput(outputText);
+}
+
+function decodeText() {
+  const inputText = document.getElementById('inputText').value.toLowerCase();
+  let outputText = '';
+
+  for (let i = 0; i < inputText.length; i++) {
+    const charCode = inputText.charCodeAt(i);
+
+    if (charCode >= 97 && charCode <= 122) {
+      const decodedCharCode = 219 - charCode;
+      outputText += String.fromCharCode(decodedCharCode);
+    } else {
+      outputText += inputText[i];
+    }
   }
-  
-  next()
+
+  displayOutput(outputText);
+}
+
+function displayOutput(text) {
+  const outputDiv = document.getElementById('outputDiv');
+  outputDiv.innerHTML = '';
+  outputDiv.style.marginLeft = '10px'; /* Add left margin */
+  outputDiv.style.marginRight = '10px'; /* Add right margin */
+
+  let index = 0;
+
+  function type() {
+    outputDiv.innerHTML += text.charAt(index);
+    index++;
+    if (index < text.length) {
+      setTimeout(type, 50);
+    }
+  }
+
+  type();
+}
