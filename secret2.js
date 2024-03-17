@@ -1,3 +1,12 @@
+function authenticate() {
+  const answer = prompt("what treat did you give me on your 13th birthday?.What was the name we decided on for our son?");
+  if (answer === "icecream.yeasif") {
+    initializeApp();
+  } else {
+    alert("Incorrect answer. Please enter your answer without any capital letters, spaces (e.g pizza.einstein ) (use . between the two answer) and double-check for spelling errors.");
+    authenticate();
+  }
+}
 function encodeText() {
   const inputText = document.getElementById('inputText').value.toLowerCase();
   let outputText = '';
@@ -52,3 +61,6 @@ function displayOutput(text) {
 
   type();
 }
+window.onload = function () {
+  authenticate();
+};
