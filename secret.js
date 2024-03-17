@@ -17,7 +17,7 @@ function authenticate() {
     encodeButton.removeAttribute("disabled");
     decodeButton.removeAttribute("disabled");
   }
-  //01703659881
+
   function simulateTyping(callback) {
     const outputDiv = document.createElement('div');
     document.body.appendChild(outputDiv);
