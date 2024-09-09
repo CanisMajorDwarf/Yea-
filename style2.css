@@ -1,0 +1,132 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin: 20px;
+  background: url('wb2.png') center/cover fixed no-repeat;
+  background-color: #f8f9fa;
+  color: #343a40;
+  position: relative;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.running-text-container {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.running-text {
+  white-space: nowrap;
+  animation: runText 14s linear infinite;
+  opacity: 50%;
+}
+
+@keyframes runText {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  width: 80%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  resize: vertical;
+  margin: 0 auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 40%;
+  max-width: 200px;
+  margin: 0 5px;
+}
+
+button.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button.secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  textarea,
+  button {
+    width: 100%;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}
+
+
+a.my-button{
+  background-color: #150051;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 11px;
+  font-weight: 800;
+  font-style: italic;
+  text-decoration: none;
+  padding: 3px 3px;
+  border: 0px solid #ffffff;
+  border-radius: 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0px 8px 10px -1px rgba(9.5562744140625,9.53990220860172,9.53990220860172,0.5);
+ }
+ a.my-button span{
+  margin-right: 4px;
+  display: block;
+  width: 11px;
+  height: 11px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAs0lEQVR4nNXWOwoCMRSF4VmBFjIKPkCxUhfmMrW0sPNRODZqo27il8CAOCaFcHLAs4Evj5vcWxT/EGAEHIE10M6JnHlnA7TUyBCo+M5SiQwSyAHoqJBefSfNnIC+EgmrbqYKu8yNXICxCukmkCswUSL7CHIDpkpkF0HuwEyFlAnkAcwlSA1tI8gTWMgQN1Rajs5WDNbytj5Y6xdk/VStbcLa+Kyt3DqcFJ9YOLJVtnHr17wAaf+OG4OnUx8AAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: rotate(0deg);
+ }
+ a.my-button:hover{
+  background-color: #f2f2f2;
+ }
+ a.my-button:active{
+  transform: scale(0.95);
+ }
+  a.my-button {
+  position: fixed;
+  top: 20px; /* Adjust the distance from the top */
+  right: 20px; /* Adjust the distance from the right */
+}
