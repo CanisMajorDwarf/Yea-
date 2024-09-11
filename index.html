@@ -61,19 +61,24 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
+
     }
 
     button {
-      padding: 8px;
-      font-size: 14px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      width: 30%;
-      max-width: 150px;
-      margin: 0 5px;
-    }
+  padding: 8px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 30%;
+  max-width: 150px;
+  margin: 0 5px;
+  display: inline-block;
+  margin-left: auto;  /* Add margin to the left */
+  margin-right: auto; /* Add margin to the right */
+}
+
 
     button.primary {
       background-color: #007bff;
@@ -194,7 +199,9 @@
     .my-button:hover {
       background-color: #0056b3;
     }
+
   </style>
+
 </head>
 
 <body>
@@ -206,10 +213,7 @@
   <audio id="unlock-sound" src="hbd.mp3" preload="auto"></audio>
 
   <h2>YEA!#</h2>
-
-  <div class="running-text-container">
-    <div class="running-text"></div>
-  </div>
+  
 
   <label for="inputText"></label>
   <textarea id="inputText" placeholder="Enter text" rows="3" disabled></textarea>

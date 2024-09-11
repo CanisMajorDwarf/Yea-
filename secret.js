@@ -1,57 +1,65 @@
 
-    // Confetti effect
-    function startConfetti() {
-      const canvas = document.getElementById("confetti");
-      const ctx = canvas.getContext("2d");
+// Confetti effect
+function startConfetti() {
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-      const confettis = [];
-      const confettiCount = 300;
+  const confettis = [];
+  const confettiCount = 300;
 
-      function randomRange(min, max) {
-        return Math.random() * (max - min) + min;
-      }
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
-      function createConfetti() {
-        for (let i = 0; i < confettiCount; i++) {
-          confettis.push({
-            x: randomRange(0, canvas.width),
-            y: randomRange(0, canvas.height),
-            speedX: randomRange(-5, 5),
-            speedY: randomRange(2, 10),
-            radius: randomRange(2, 5),
-            color: `hsl(${randomRange(0, 360)}, 100%, 50%)`
-          });
-        }
-      }
-
-      function drawConfetti() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        confettis.forEach(confetti => {
-          ctx.beginPath();
-          ctx.arc(confetti.x, confetti.y, confetti.radius, 0, 2 * Math.PI);
-          ctx.fillStyle = confetti.color;
-          ctx.fill();
-
-          confetti.x += confetti.speedX;
-          confetti.y += confetti.speedY;
-
-          if (confetti.y > canvas.height) {
-            confetti.y = -confetti.radius;
-          }
-        });
-      }
-
-      function updateConfetti() {
-        drawConfetti();
-        requestAnimationFrame(updateConfetti);
-      }
-
-      createConfetti();
-      updateConfetti();
+  function createConfetti() {
+    for (let i = 0; i < confettiCount; i++) {
+      confettis.push({
+        x: randomRange(0, canvas.width),
+        y: randomRange(0, canvas.height),
+        speedX: randomRange(-5, 5),
+        speedY: randomRange(2, 10),
+        radius: randomRange(2, 5),
+        color: `hsl(${randomRange(0, 360)}, 100%, 50%)`
+      });
     }
+  }
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confettis.forEach(confetti => {
+      ctx.beginPath();
+      ctx.arc(confetti.x, confetti.y, confetti.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = confetti.color;
+      ctx.fill();
+
+      confetti.x += confetti.speedX;
+      confetti.y += confetti.speedY;
+
+      if (confetti.y > canvas.height) {
+        confetti.y = -confetti.radius;
+      }
+    });
+  }
+
+  let animationFrameId;
+
+  function updateConfetti() {
+    drawConfetti();
+    animationFrameId = requestAnimationFrame(updateConfetti);
+  }
+
+  createConfetti();
+  updateConfetti();
+
+  // Stop the confetti after 5 seconds
+  setTimeout(() => {
+    cancelAnimationFrame(animationFrameId);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas when confetti stops
+  }, 99000); // 5000ms = 5 seconds
+}
 
     // Display birthday message
     function displayBirthdayMessage() {
@@ -59,7 +67,7 @@
       birthdayMessage.style.display = 'block';
       setTimeout(() => {
         birthdayMessage.style.display = 'none';
-      }, 4000); // Hide the message after 4 seconds
+      }, 9000); // Hide the message after 4 seconds
     }
 
     // Authentication and App Initialization
