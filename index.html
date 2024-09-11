@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="secret.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <title>YEA!#</title>
   <style>
+    /* Styles are the same as before */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       margin: 20px auto;
       background: url('wb2.png') center/cover fixed no-repeat;
-      background-color: #f8f9fa;
+      background-color: #126991bd;
+
       color: #343a40;
       position: relative;
     }
@@ -55,9 +56,6 @@
       margin-bottom: 15px;
       resize: vertical;
       margin: 0 auto;
-      margin-left: 10px;
-      margin-right: 10px;
-      /* From https://css.glass */
       background: rgba(40, 86, 166, 0.13);
       border-radius: 10px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -100,31 +98,112 @@
       }
     }
 
-    /* New styles for the hover button */
-    .hover-button {
+    /* Birthday message styles */
+    #birthday-message {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 80px; /* Adjusted width to make the button smaller */
-  height: 30px; /* Adjusted height to make the button smaller */
-  font-size: 12px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  background-color: #6c757d3f;
-  color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8); /* Initial scale for zoom-in effect */
+  text-align: center;
+  color: #218cfe;
+  font-size: 4rem;
+  z-index: 9999;
+  display: none;
+  padding: 30px;
+  border-radius: 20px;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing: 6px;
+  text-shadow: 4px 4px 15px rgba(255, 255, 255, 0.8), 
+               -4px -4px 15px rgba(255, 255, 255, 0.6);
+  animation: slideInOut 10s ease-in-out forwards, floatEffect 6s ease-in-out infinite, colorChange 6s ease-in-out infinite;
+}
+
+/* Slide in and out effect */
+@keyframes slideInOut {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5); /* Smaller scale at start */
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-50%, -50%) scale(1); /* Full scale */
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1); /* Full scale */
+    opacity: 1;
+  }
+  90% {
+    transform: translate(-50%, -50%) scale(0.5); /* Smaller scale at end */
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.5); /* Final state */
+    opacity: 0;
+  }
+}
+
+/* Floating effect */
+@keyframes floatEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(1) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1) translateY(-20px); /* Float upward */
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) translateY(0); /* Return to original position */
+  }
+}
+
+/* Color change effect */
+@keyframes colorChange {
+  0% {
+    color: #218cfe; /* Original color */
+  }
+  50% {
+    color: #ff1493; /* Transition to vibrant pink */
+  }
+  100% {
+    color: #218cfe; /* Back to original color */
+  }
 }
 
 
-    .hover-button:hover {
-      background-color: #0057b3;
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    .my-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .my-button:hover {
+      background-color: #0056b3;
     }
   </style>
-  <title>YEA!#</title>
 </head>
 
 <body>
+  <!-- Birthday Message -->
+  <div id="birthday-message">Happy Birthday Lamiya!</div>
+  <canvas id="confetti"></canvas>
+
+
+  <audio id="unlock-sound" src="hbd.mp3" preload="auto"></audio>
 
   <h2>YEA!#</h2>
 
@@ -140,29 +219,8 @@
   <button class="primary" onclick="simulateTyping(encodeText)" disabled>Encode</button>
   <button class="secondary" onclick="simulateTyping(decodeText)" disabled>Decode</button>
 
-  <!-- New button for the last right side -->
-
- <!--  <button class="hover-button"></button>
-  <a href="index2.html" class="hover-button"><em>0-48</em></a> -->
-  <a class="my-button" href="index2.html"><span></span>zero-48</a>
-
-
-
-
-
-  <script>
-    // You can add JavaScript functionality for the button if needed
-    const hoverButton = document.querySelector('.hover-button');
-
-    hoverButton.addEventListener('mouseenter', () => {
-      hoverButton.style.backgroundColor = '#0056b3'; // Change background color on hover
-    });
-
-    hoverButton.addEventListener('mouseleave', () => {
-      hoverButton.style.backgroundColor = ''; // Reset background color when not hovering
-    });
-  </script>
-
+  <script src="secret.js"></script>
+  
 </body>
 
 </html>
