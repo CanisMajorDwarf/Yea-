@@ -73,7 +73,7 @@ function startConfetti() {
     // Authentication and App Initialization
     function authenticate() {
       const answer = prompt("what treat did you give me on your 13th birthday?.What was the name we decided on for our son?");
-      if (answer === "i") {
+      if (answer === "icecream.yeasif") {
         initializeApp();
       } else {
         alert("Incorrect answer. Please enter your answer without any capital letters, spaces (e.g pizza.einstein ) (use . between the two answer) and double-check for spelling errors.");
