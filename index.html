@@ -199,6 +199,35 @@
     .my-button:hover {
       background-color: #0056b3;
     }
+/* CSS */
+.image-container {
+  position: relative;
+  padding-top: 60px; /* Creates space for the image at the top */
+  text-align: center; /* Centers the image horizontally */
+}
+
+.lucky {
+  width: 150px; /* Adjust size as needed */
+  max-width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+  .lucky {
+    width: 120px; /* Adjust size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .lucky {
+    width: 100px; /* Further adjust size for very small screens */
+  }
+}
+
 
   </style>
 
@@ -212,7 +241,10 @@
 
   <audio id="unlock-sound" src="hbd.mp3" preload="auto"></audio>
 
-  <h2>YEA!#</h2>
+  <!-- <h2>LUCKY13</h2> -->
+  <div class="image-container">
+    <img class="lucky" src="LUCKY__2.png" alt="">
+  </div>
   
 
   <label for="inputText"></label>
